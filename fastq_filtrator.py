@@ -1,4 +1,4 @@
-def main(input_fastq, output_file_prefix,
+def main(input_fastq, output_file_prefix='',
          gc_bounds=(0, 100), length_bounds=(0, 2 ** 32),
          quality_threshold=0, save_filtered=False):
     file = open(input_fastq)
@@ -10,20 +10,22 @@ def main(input_fastq, output_file_prefix,
         if read[0] == '':
             break
 
-        if not isinstance(length_bounds, tuple):
-            base_length(read, read[1], length_bounds)
-        else:
-            base_length(read, read[1], length_bounds[1])
-            full_length(read, read[1], length_bounds[0])
+        if length_bounds != (0, 2 ** 32):
+            if not isinstance(length_bounds, tuple):
+                base_length(read, read[1], length_bounds)
+            else:
+                base_length(read, read[1], length_bounds[1])
+                full_length(read, read[1], length_bounds[0])
 
         if len(read) != 4 and save_filtered:
             output(output_file_prefix, read[0:3], good=0)
             continue
 
-        if not isinstance(gc_bounds, tuple):
-            base_gc(read, read[1], gc_bounds)
-        else:
-            full_gc(read, read[1], gc_bounds[0], gc_bounds[1])
+        if gc_bounds != (0, 100):
+            if not isinstance(gc_bounds, tuple):
+                base_gc(read, read[1], gc_bounds)
+            else:
+                full_gc(read, read[1], gc_bounds[0], gc_bounds[1])
 
         if len(read) != 4 and save_filtered:
             output(output_file_prefix, read[0:3], good=0)
