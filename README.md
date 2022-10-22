@@ -17,7 +17,7 @@ Simply call the function main with the proper arguments, and it will do its work
 #### NECESSARY ARGUMENTS
 
 input_fastq - this is the path to an input fastq.file. 
-It supports both the absolute and relative paths including just the name of the file if it is in the working directory.
+It might be the absolute path or one from the working directory.
 
 #### OPTIONAL ARGUMENTS
 
@@ -43,7 +43,7 @@ save_filtered=False - reads that filtered out are not saved by default. If you w
 main(input_fastq, output_file_prefix='', gc_bounds=(0, 100), length_bounds=(0, 2 ** 32), quality_threshold=0, save_filtered=False) - the main function :)
 
 
-The rest are used inside the main and receive its arguments from it:
+The other functions are used inside the main and receive their arguments from it:
 
 
 scan(data) - the function used for file loading reads from file into the memory.
