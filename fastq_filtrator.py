@@ -18,7 +18,7 @@ def main(input_fastq, output_file_prefix='',
                 full_length(read, read[1], length_bounds[0])
 
         if len(read) != 4 and save_filtered:
-            output(output_file_prefix, read[0:3], good=0)
+            output(output_file_prefix, read[0:4], good=0)
             continue
 
         if gc_bounds != (0, 100):
@@ -28,17 +28,17 @@ def main(input_fastq, output_file_prefix='',
                 full_gc(read, read[1], gc_bounds[0], gc_bounds[1])
 
         if len(read) != 4 and save_filtered:
-            output(output_file_prefix, read[0:3], good=0)
+            output(output_file_prefix, read[0:4], good=0)
             continue
 
         if quality_threshold != 0:
             filter_quality(read, read[3], quality_threshold)
 
         if len(read) != 4 and save_filtered:
-            output(output_file_prefix, read[0:3], good=0)
+            output(output_file_prefix, read[0:4], good=0)
             continue
 
-        output(output_file_prefix, read[0:3], good=1)
+        output(output_file_prefix, read[0:4], good=1)
     file.close()
 
 
@@ -47,7 +47,7 @@ def main(input_fastq, output_file_prefix='',
 def scan(data):
     current_read = []
     for string in range(4):
-        current_read.append(data.readline().strip())
+        current_read.append(data.readline())
     return current_read
 
 
@@ -83,7 +83,7 @@ def full_gc(read, sequence, lower_bound, upper_bound):
     gc = base_gc(read, sequence, upper_bound)
     if gc > upper_bound:
         read.append("X_X")
-    elif gc < lower_bound:
+    if gc < lower_bound:
         read.append("X_X")
 
 
@@ -105,6 +105,6 @@ def output(path, read, good=1):
         file1 = open(f"{path}_passed.fastq", "a")
     else:
         file1 = open(f"{path}_failed.fastq", "a")
-    for line in read[0:3]:
+    for line in read[0:4]:
         file1.write(line)
     file1.close()
