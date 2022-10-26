@@ -71,7 +71,7 @@ def base_gc(read, sequence, upper_bound):
         if nucl in base_count:
             base_count[nucl] += 1
         else:
-            base_count[nucl] = 0
+            base_count[nucl] = 1
     total = (base_count["G"] + base_count["C"])
     gc = total / sum(base_count.values()) * 100
     if gc > upper_bound:
@@ -81,8 +81,6 @@ def base_gc(read, sequence, upper_bound):
 
 def full_gc(read, sequence, lower_bound, upper_bound):
     gc = base_gc(read, sequence, upper_bound)
-    if gc > upper_bound:
-        read.append("X_X")
     if gc < lower_bound:
         read.append("X_X")
 
