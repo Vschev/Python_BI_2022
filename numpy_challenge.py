@@ -27,9 +27,7 @@ def multiplication_check(your_list):
 def multiply_matrices(your_list):
     check = multiplication_check(your_list)
     if check:
-        result = your_list[0]
-        for elem in range(1, len(your_list)):
-            result = np.matmul(result, your_list[elem])
+        result = np.linalg.multi_dot(your_list)
     else:
         result = None
     return result
@@ -43,3 +41,11 @@ def compute_2d_distance(arg1, arg2):
 def compute_multidimensional_distance(arg1, arg2):
     dist = np.linalg.norm(arg1 - arg2)
     return dist
+
+# I do this manually because I can't understand
+# how to broadcast the norm function
+# I used before :( I hope someone has better solution
+
+def compute_pair_distances(ar):
+    eucl = np.sqrt(((ar[:, :, None] - ar[:, :, None].T) ** 2).sum(1))
+    return eucl
