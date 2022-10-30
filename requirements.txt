@@ -1,0 +1,7 @@
+﻿google-api-python-client
+beautifulsoup4
+biopython
+aiohttp
+pandas
+opencv-python
+lxml
