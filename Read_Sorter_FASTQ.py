@@ -59,22 +59,17 @@ class FASTQFile:
 
 def read_fastq(fastq_file_name):
     fastqreads = FASTQFile(fastq_file_name)
-
     with open(fastq_file_name) as file:
-        p = 0
+        fastqreads.fastq_records = []
         while True:
-            obj = list(file.readline())
-            if obj == []:
+            obj = file.read(1)
+            if obj != "@":
                 break
-            FASTQreads.fastq_records.append(Read())
-            FASTQreads.fastq_records[-1].read_id = ''.join(obj[1:-1])
-            obj = list(file.readline())
-            FASTQreads.fastq_records[-1].read_sequence = ''.join(obj[0:-1])
-            obj = list(file.readline())
-            FASTQreads.fastq_records[-1].comment = ''.join(obj[0:-1])
-            obj = list(file.readline())
-            FASTQreads.fastq_records[-1].quality = ''.join(obj[0:-1])
-            p += 1
-    return FASTQreads
+            r = Read(file.readline().strip(),
+                     file.readline().strip(),
+                     file.readline().strip(),
+                     file.readline().strip())
+            fastqreads.fastq_records.append(r)
+    return fastqreads
             
             
