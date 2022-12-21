@@ -32,21 +32,9 @@ class FASTQFile:
         self.fastq_records = fastq_records
 
     def sort_reads(self):
-        read_stats = []
-        for num in range(len(self.fastq_records)):
-            read_stats.append((self.fastq_records[num].mean_quality()*(-1),
-                               len(self.fastq_records[num])*(-1),
-                               self.fastq_records[num].gc(),
-                               self.fastq_records[num].read_id,
-                               num))
-        read_stats.sort()
-        sorted_reads = []
-        for stats in read_stats:
-            sorted_reads.append(self.fastq_records[stats[4]])
-        self.fastq_records = sorted_reads.copy()
-        sorted_reads = []
-        for i in self.fastq_records:
-            print(i.mean_quality())
+        self.fastq_records = sorted(self.fastq_records, key = lambda x:
+                                    (x.mean_quality()*(-1), len(x)*(-1),
+                                     x.gc(), x.read_id))
 
     def write_to_file(self, fastq_file_name):
         with open(fastq_file_name, "w") as file:
