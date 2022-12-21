@@ -1,7 +1,7 @@
 class Read:
-    def __init__(self, read_id='ngs_read',
-                 read_sequence='read',
-                 comment='+', quality='qual'):
+    def __init__(self, read_id,
+                 read_sequence,
+                 comment, quality):
 
         self.read_id = read_id
         self.read_sequence = read_sequence
@@ -27,7 +27,7 @@ class Read:
 
 class FASTQFile:
     def __init__(self, file = 'A:/Thaliana.fastq',
-                 fastq_records = []):
+                 fastq_records = None):
         self.file = file
         self.fastq_records = fastq_records
 
