@@ -1,7 +1,8 @@
 class Read:
-    def __init__(self, read_id = 'ngs_read',
-                 read_sequence = 'read',
-                 comment = '+', quality = 'qual'):
+    def __init__(self, read_id='ngs_read',
+                 read_sequence='read',
+                 comment='+', quality='qual'):
+
         self.read_id = read_id
         self.read_sequence = read_sequence
         self.comment = comment
