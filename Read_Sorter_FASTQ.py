@@ -57,7 +57,8 @@ class FASTQFile:
             
 
 def read_fastq(fastq_file_name):
-    FASTQreads = FASTQFile(fastq_file_name)
+    fastqreads = FASTQFile(fastq_file_name)
+
     with open(fastq_file_name) as file:
         p = 0
         while True:
